@@ -9,9 +9,10 @@
                     .then((stream) => {
                         video.srcObject = stream;
                         video.play();
+                        document.getElementById("error").innerHTML = "";
                     })
                     .catch((err) => {
-                        console.error("Error: ", err);
+                        document.getElementById("error").innerHTML = "分享畫面失敗";
                     })
             };
         </script>
@@ -22,6 +23,7 @@
         <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getDisplayMedia" target="_blank">參考資料</a>
         </p>
         <button onclick="capture();">Capture</button>
+        <p id="error"></p>
         <br/>
         <video id="video" style="width: 100%;"></video>
     </body>
