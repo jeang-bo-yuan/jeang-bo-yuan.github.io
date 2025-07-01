@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <script>
+            const capture = async () => {
+                const video = document.getElementById("video");
+
+                navigator.mediaDevices
+                    .getDisplayMedia({video: true, audio: false})
+                    .then((stream) => {
+                        video.srcObject = stream;
+                        video.play();
+                    })
+                    .catch((err) => {
+                        console.error("Error: ", err);
+                    })
+            };
+        </script>
+    </head>
+    <body>
+        <h1>以 navigator.mediaDevices.getDisplayMedia 取得分享畫面</h1>
+        <p>這個函數會一次取得整個畫面，並且以 MediaStream 來持續分享畫面
+        <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getDisplayMedia" target="_blank">參考資料</a>
+        </p>
+        <button onclick="capture();">Capture</button>
+        <br/>
+        <video id="video" style="width: 100%;"></video>
+    </body>
+</html>
