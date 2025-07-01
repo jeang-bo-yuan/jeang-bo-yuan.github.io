@@ -1,0 +1,105 @@
+<!--
+    這個網頁示範如何使用 Google Static Map API 來抓取道路圖片
+    https://developers.google.com/maps/documentation/maps-static/start
+-->
+<html>
+    <head>
+        <title>Google Static Map - Basic</title>
+        <script>
+            // parse search param
+            const URLParams = new URLSearchParams(window.location.search)
+            // 如果是空字串或null，則用後面的字串來parse
+            const lat     = parseFloat(URLParams.get('lat')    || '25.013640');
+            const lng     = parseFloat(URLParams.get('lng')    || '121.540675');
+            const zoom    = parseInt  (URLParams.get('zoom')   || '20');
+            const width   = parseInt  (URLParams.get('width')  || '640');
+            const height  = parseInt  (URLParams.get('height') || '640');
+            const mapType = URLParams.get('mapType') || 'roadmap';
+            const key     = URLParams.get('key') || '';
+
+            const Go = function() {
+                document.getElementById('paramForm').submit();
+            }
+
+            const Reset = function() {
+                // 將 search parameter 清空，然後跳轉
+                window.location.href = window.location.href.replace(window.location.search,'');
+            }
+        </script>
+        <style>
+            header {
+                background-color: aqua;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <a href="../index.html">Home</a>
+        </header>
+
+        <div style="float: left; width: 30%; margin: 5%;">
+            <p>這個網頁示範如何使用 Google Static Map API 來抓取道路圖片，你需要自備 API Key <br/>
+            <a href="https://developers.google.com/maps/documentation/maps-static/start">參考資料</a></p>
+
+            <form id="paramForm">
+                <label for="lat">緯度：</label>
+                <input name="lat" type="number" step="0.000001" id="lat" onchange="Go()">
+
+                <br/>
+                <label for="lng">經度：</label>
+                <input name="lng" type="number" step="0.000001" id="lng" onchange="Go()">
+                
+                <br/>
+                <label for="zoom"  style="width: 32%; display:inline-block;">Zoom（0 ~ 21）：</label>
+                <input name="zoom" type="number" min="0" max="21" id="zoom" onchange="Go()">
+
+                <br/>
+                <label for="width"  style="width: 32%; display:inline-block;">Width（0 ~ 640）：</label>
+                <input name="width" type="number" step="10" min="0" max="640" id="width" onchange="Go()">
+
+                <br/>
+                <label for="height"  style="width: 32%; display:inline-block;">Height（0 ~ 640）：</label>
+                <input name="height" type="number" step="10" min="0" max="640" id="height" onchange="Go()">
+
+                <br/>
+                <label for="key">API Key：</label>
+                <input name="key"   style="width:100%;" type="text" id="key" onchange="Go()">
+
+                <br/>
+                <label  for="mapType">Map Type：</label>
+                <select name="mapType" id="mapType" onchange="Go()">
+                    <option value="roadmap">roadmap</option>
+                    <option value="satellite">satellite</option>
+                    <option value="terrain">terrain</option>
+                    <option value="hybrid">hybrid</option>
+                </select>
+
+                <br/>
+                <input style="margin-top: 10px;" type="button" onclick="Reset()" value="Reset">
+            </form>
+
+            <p id="showStaticURL" style="line-break: anywhere; margin-top: 10%;"></p>
+        </div>
+        
+        <div style="float: left; width: 60%;">
+            <img id="map" style="width: auto; height: auto; margin: 2%;"/>
+        </div>
+        
+        <script>
+            // 載入預設值
+            document.getElementById('lat').value     = lat;
+            document.getElementById('lng').value     = lng;
+            document.getElementById('zoom').value    = zoom;
+            document.getElementById('width').value   = width;
+            document.getElementById('height').value  = height;
+            document.getElementById("mapType").value = mapType;
+            document.getElementById('key').value     = key;
+            
+            // 生成 URL
+            const staticURL = `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=${zoom}&size=${width}x${height}&maptype=${mapType}&key=${key}`;
+            document.getElementById('map').src = staticURL;
+            if (key != '')
+                document.getElementById('showStaticURL').innerHTML = `Static Map URL = <a href=${staticURL} target="_blank" title="新分頁開啟">${staticURL}</a>`;
+        </script>
+    </body>
+</html>
