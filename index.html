@@ -1,18 +1,65 @@
 <html lang="zh-tw">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta property="og:title" content="My Website"/>
         <meta property="og:description" content="我的網站首頁"/>
-        <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/900px-Octicons-mark-github.svg.png?20180806170715"/>
+        <meta property="og:image" content="https://github.com/jeang-bo-yuan.png"/>
         <link rel="stylesheet" href="/css/common.css">
+
+        <style>
+            .bio_section {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .bio_avatar {
+                padding: 10px 10%;
+                width: 80%;
+            }
+
+            .bio_section .clickable_icon img {
+                height: 30px;
+                padding: 10px;
+            }
+
+            @media (min-width: 600px) {
+                .bio_section {
+                    padding: 10px 5%;
+                    gap: 50px;
+                    display: grid;
+                    grid-template-columns: 2fr 3fr;
+                }
+
+                .bio_avatar {
+                    width: 100%;
+                }
+            }
+
+            @media (min-width: 1200px) {
+                .bio_section {
+                    grid-template-columns: 1fr 3fr;
+                }
+            }
+        </style>
     </head>
     <body>
         <header>
-            <a href="/index.html" class="home_icon"><img src="/img/google_material_icon_home.png"></a>
+            <a href="/index.html" class="clickable_icon"><img src="/img/google_material_icon_home.png"></a>
             Home
         </header>
+
+        <!-- 上方的個人簡介 -->
+        <div class="bio_section">
+            <!-- https://stackoverflow.com/a/36380674/20876404 -->
+            <img class="bio_avatar circle_img" src="https://github.com/jeang-bo-yuan.png">
+            <div>
+                <a target="_blank" class="clickable_icon" title="GitHub" href="https://github.com/jeang-bo-yuan"><img src="https://github.com/github.png" class="circle_img"></a>
+                <a target="_blank" class="clickable_icon" title="HackMD" href="https://hackmd.io/@jeangbyj"><img src="https://hackmd.io/favicon.png"></a>
+            </div>
+        </div>
         <p>
-            這是我的綱頁前端練習，本頁面使用了 OpenGraph，分享後會顯示資訊卡
+            這是我的網頁前端練習，本頁面使用了 OpenGraph，分享後會顯示資訊卡
         </p>
 
         <h2>截圖練習</h2>

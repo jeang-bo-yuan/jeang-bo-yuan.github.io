@@ -1,6 +1,7 @@
 <html lang="zh-tw">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <title>DMS to Degree</title>
         <link rel="stylesheet" href="/css/common.css">
         <link rel="stylesheet" href="/css/responsive_font_size.css">
@@ -57,6 +58,10 @@
                 border-collapse: collapse;
             }
 
+            .result_table td:nth-child(2) {
+                overflow-wrap: anywhere;
+            }
+
             .result_table td {
                 padding: 10px;
                 border-width: 2px;
@@ -70,14 +75,14 @@
         </div>
 
         <header>
-            <a href="/index.html" class="home_icon"><img src="/img/google_material_icon_home.png"></a>
+            <a href="/index.html" class="clickable_icon"><img src="/img/google_material_icon_home.png"></a>
             > DMS to Degree
         </header>
 
         <label for="dms_to_degree_input">
         DMS (copy from Google Earth, format: <span class="highlight"><i>D</i>°<i>M</i>'<i>S</i>"[N|S] <i>D</i>°<i>M</i>'<i>S</i>"[W|E]</span>):
         </label>
-        <input type="text" id="dms_to_degree_input" placeholder="e.g. 40°42'39.03&quot;N 73°57'16.39&quot;W">
+        <input type="text" id="dms_to_degree_input" placeholder="e.g. 40°42'39.03&quot;N 73°57'16.39&quot;W" value="40°42'39.03&quot;N 73°57'16.39&quot;W">
         <button onclick="dmsToDegree()" class="convert_button">|<br/>V</button>
         <br/>
         Result: <span id="dms_to_degree_output"></span>
@@ -103,18 +108,28 @@
                 <tr>
                     <td>Latitude</td>
                     <td>${latDeg}</td>
-                    <td><button onclick="navigator.clipboard.writeText(${latDeg}); showCopyToast()">Copy</button></td>
+                    <td><button onclick="copyText(${latDeg})">Copy</button></td>
                 </tr>
                 <tr>
                     <td>Longitude</td>
                     <td>${lngDeg}</td>
-                    <td><button onclick="navigator.clipboard.writeText(${lngDeg}); showCopyToast()">Copy</button></td>
+                    <td><button onclick="copyText(${lngDeg})">Copy</button></td>
                 </tr>
             </table>
             `;
         }
 
         let ShowToastCounter = 0;
+
+        async function copyText(text) {
+            if (window.isSecureContext) {
+                await navigator.clipboard.writeText(text);
+                showCopyToast();
+            }
+            else {
+                window.alert('The context is not secure to use navigator.clipboard. See https://stackoverflow.com/a/51823007/20876404.');
+            }
+        }
 
         function showCopyToast() {
             const elem = document.getElementById('oncopy_toast');

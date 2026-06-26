@@ -1,6 +1,10 @@
+/* 預設字型 */
+body, body * {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
 header {
     font-size: 20px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 
     overflow-wrap: anywhere;
     background-color: rgb(255, 228, 196);
@@ -9,21 +13,7 @@ header {
     margin-bottom: 20px;
 }
 
-.home_icon {
-    display: inline-block;
-    vertical-align: text-bottom; /* 讓 icon 對齊文字底部 */
-}
-
-.home_icon img {
-    aspect-ratio: 1;
-    height: 1.5em;
-}
-
-.home_icon:hover {
-    background-color: rgba(180, 180, 180, 0.586);
-}
-
-@media (min-width: 700px) {
+@media (min-width: 600px) {
     body {
         padding: 10px 15px;
     }
@@ -33,7 +23,7 @@ header {
     }
 }
 
-@media (min-width: 1300px) {
+@media (min-width: 1200px) {
     body {
         padding: 10px 20px;
     }
@@ -43,3 +33,21 @@ header {
     }
 }
 
+/* 這個 clickable icon 可以和文字一樣擺在句子中間，圖片高約為預設字型的文字高 */
+.clickable_icon {
+    display: inline-block;
+    vertical-align: text-bottom; /* 讓 icon 對齊文字底部 */
+}
+
+.clickable_icon img {
+    aspect-ratio: 1;
+    height: 1.5em;
+}
+
+.clickable_icon:hover {
+    background-color: rgba(180, 180, 180, 0.586);
+}
+
+.circle_img {
+    border-radius: 100%;
+}
