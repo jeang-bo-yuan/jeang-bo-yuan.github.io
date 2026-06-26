@@ -1,0 +1,45 @@
+header {
+    font-size: 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+    overflow-wrap: anywhere;
+    background-color: rgb(255, 228, 196);
+    font-weight: bold;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.home_icon {
+    display: inline-block;
+    vertical-align: text-bottom; /* 讓 icon 對齊文字底部 */
+}
+
+.home_icon img {
+    aspect-ratio: 1;
+    height: 1.5em;
+}
+
+.home_icon:hover {
+    background-color: rgba(180, 180, 180, 0.586);
+}
+
+@media (min-width: 700px) {
+    body {
+        padding: 10px 15px;
+    }
+
+    header {
+        font-size: 25px;
+    }
+}
+
+@media (min-width: 1300px) {
+    body {
+        padding: 10px 20px;
+    }
+
+    header {
+        font-size: 35px;
+    }
+}
+

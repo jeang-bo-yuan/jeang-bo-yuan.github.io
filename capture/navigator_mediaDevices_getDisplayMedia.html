@@ -1,6 +1,7 @@
 <html lang="zh-tw">
     <head>
         <meta charset="UTF-8">
+        <link rel="stylesheet" href="/_data/css/common.css">
         <script>
             const capture = async () => {
                 const video = document.getElementById("video");
@@ -17,15 +18,11 @@
                     })
             };
         </script>
-        <style>
-            header {
-                background-color: aqua;
-            }
-        </style>
     </head>
     <body>
         <header>
-            <a href="../index.html">Home</a>
+            <a href="/index.html" class="home_icon"><img src="/_data/img/google_material_icon_home.png"></a>
+            > navigator.mediaDevices.getDisplayMedia
         </header>
 
         <h1>以 navigator.mediaDevices.getDisplayMedia 取得分享畫面</h1>
