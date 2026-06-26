@@ -23,6 +23,8 @@
                 document.getElementById('map').src = staticURL;
                 if (key != '')
                     document.getElementById('showStaticURL').innerHTML = `Static Map URL = <a href=${staticURL} target="_blank" title="新分頁開啟">${staticURL}</a>`;
+                else
+                    document.getElementById('showStaticURL').innerHTML = '';
             }
 
             const Reset = function() {
