@@ -1,0 +1,168 @@
+<html>
+    <head>
+        <title>DMS to Degree</title>
+        <style>
+            body, body * {
+                font-size: 20px;
+                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            }
+
+            header {
+                background-color: rgb(255, 228, 196);
+                font-weight: bold;
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+
+            #oncopy_toast {
+                padding: 20px;
+                display: flex;
+                position: fixed;
+                background-color: #c1d0d6;
+                border-radius: 5px;
+
+                /* 水平置中, 靠底下 */
+                left: 50%;
+                bottom: 0;
+                transform: translate(-50%, 100%); /* 在 transform 中 50% 是指自身的 50% 不是 parent 的 50% */
+
+                opacity: 0.8;
+                transition: transform 0s ease;
+            }
+
+            #oncopy_toast.show {
+                transform: translate(-50%, 0);
+
+                transition: transform 0.5s ease;
+            }
+
+            .highlight, .highlight * {
+                background-color: rgb(240, 240, 240);
+                font-family:'Courier New', Courier, monospace;
+            }
+
+            input[type=text] {
+                width: stretch;
+                margin: 10px 0;
+            }
+
+            .convert_button {
+                font-family: Arial, Helvetica, sans-serif;
+                width: 50%;
+                margin: 10px 25%;
+                border-radius: 10px;
+                background-color: #FE938C;
+            }
+
+            .convert_button:hover {
+                background-color: #fdafa9;
+            }
+
+            .convert_button:active {
+                background-color: #d37b75;
+            }
+
+            .result_table {
+                border-collapse: collapse;
+            }
+
+            .result_table td {
+                padding: 10px;
+                border-width: 2px;
+                border-style: solid;
+            }
+
+            @media (min-width: 700px) {
+                body {
+                    padding: 10px 15px;
+                }
+
+                body, body * {
+                    font-size: 25px;
+                }
+            }
+
+            @media (min-width: 1300px) {
+                body {
+                    padding: 10px 20px;
+                }
+
+                body, body * {
+                    font-size: 35px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="oncopy_toast">
+            Copied
+        </div>
+
+        <header>
+            DMS to Degree
+        </header>
+
+        <label for="dms_to_degree_input">
+        DMS (copy from Google Earth, format: <span class="highlight"><i>D</i>°<i>M</i>'<i>S</i>"[N|S] <i>D</i>°<i>M</i>'<i>S</i>"[W|E]</span>):
+        </label>
+        <input type="text" id="dms_to_degree_input" placeholder="e.g. 40°42'39.03&quot;N 73°57'16.39&quot;W">
+        <button onclick="dmsToDegree()" class="convert_button">|<br/>V</button>
+        <br/>
+        Result: <span id="dms_to_degree_output"></span>
+    </body>
+
+    <script>
+        function dmsToDegree() {
+            const input = document.getElementById('dms_to_degree_input');
+            const output = document.getElementById('dms_to_degree_output');
+
+            const match = input.value.match(/^\s*(\d+)°(\d+)'(.+?)"([NS])\s*(\d+)°(\d+)'(.+?)"([WE])\s*$/)
+
+            if (!match) {
+                output.innerHTML = `</br><span class='highlight'>Invalid</span>`;
+                return;
+            }
+
+            const latDeg = (parseFloat(match[1]) + parseFloat(match[2]) / 60 + parseFloat(match[3] / 3600)) * (match[4] === 'N' ? 1 : -1);
+            const lngDeg = (parseFloat(match[5]) + parseFloat(match[6]) / 60 + parseFloat(match[7] / 3600)) * (match[8] === 'E' ? 1 : -1);
+
+            output.innerHTML = `
+            <table class='result_table'>
+                <tr>
+                    <td>Latitude</td>
+                    <td>${latDeg}</td>
+                    <td><button onclick="navigator.clipboard.writeText(${latDeg}); showCopyToast()">Copy</button></td>
+                </tr>
+                <tr>
+                    <td>Longitude</td>
+                    <td>${lngDeg}</td>
+                    <td><button onclick="navigator.clipboard.writeText(${lngDeg}); showCopyToast()">Copy</button></td>
+                </tr>
+            </table>
+            `;
+        }
+
+        let ShowToastCounter = 0;
+
+        function showCopyToast() {
+            const elem = document.getElementById('oncopy_toast');
+            // Hide immediately
+            elem.classList.remove('show');
+
+            setTimeout(() => {
+                // Show after 10 ms
+                elem.classList.add('show');
+                ShowToastCounter += 1;
+                
+                setTimeout(() => {
+                    ShowToastCounter -= 1;
+                    
+                    if (ShowToastCounter == 0) {
+                        // Hide if after 1000 ms and no one is showing toast
+                        elem.classList.remove('show');
+                    }
+                }, 1000);  
+            }, 10);
+        }
+    </script>
+</html>
